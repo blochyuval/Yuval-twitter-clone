@@ -19,11 +19,12 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
+console.log(process.env.CLOUDINARY_API_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(express.json()); // to parse req.body
+app.use(express.json({limit: '5mb'})); // to parse req.body
 app.use(express.urlencoded({ extended: true })); //to pass form data(urlrncoded)
 
 app.use(cookieParser());
