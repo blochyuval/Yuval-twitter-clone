@@ -216,7 +216,7 @@ export const getUserPosts = async(req,res) => {
       select: '-password'
     });
 
-    return res.status(200).json({userPosts});
+    return res.status(200).json(userPosts);
     
   } catch (error) {
     console.log('Error in getUserPost controller: ', error.message);
