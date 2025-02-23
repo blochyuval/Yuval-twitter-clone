@@ -5,8 +5,10 @@ import useFollow from "../../hooks/useFollow";
 
 import LoadingSpinner from './LoadingSpinner.jsx';
 import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
+import { useState } from "react";
 
 const RightPanel = () => {
+	const [loadingUserId, setLoadingUserId] = useState(null);
 	
 
 	const {data: suggestedUsers, isLoading} = useQuery({
@@ -26,7 +28,12 @@ const RightPanel = () => {
 		}
 	});
 
-	const { follow, isPending } = useFollow()
+	const { follow, isPending } = useFollow();
+
+	const handleFollow = (userId) => {
+		setLoadingUserId(userId);
+		follow(userId);
+	}
 
 	if(suggestedUsers?.length === 0) return <div className='md:w-64 w-0'></div>
 
@@ -66,14 +73,17 @@ const RightPanel = () => {
 								</div>
 								<div>
 									<button
-										className='btn bg-white text-black hover:bg-white hover:opacity-90 rounded-full btn-sm'
-										onClick={(e) => {
-											e.preventDefault();
-											follow(user._id)
-										}
-										}
-									>
-										{isPending? <LoadingSpinner size='sm' /> : 'Follow'}
+										className='btn bg-white text-black hover:bg-white hover:opacity-90 rounded-full btn-sm' 
+										onClick={(e) => { 
+										e.preventDefault(); 
+										handleFollow(user._id)
+										} 
+										} 
+										> 
+										{loadingUserId === user._id && isPending? 
+										(<LoadingSpinner size='sm' />) : 'follow'}
+										
+										
 									</button>
 								</div>
 							</Link>
