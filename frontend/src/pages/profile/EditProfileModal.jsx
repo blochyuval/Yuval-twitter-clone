@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import LoadingSpinner from "../../components/common/LoadingSpinner";
-import userUpdateUserProfile from "../../hooks/useUpdateUserProfile";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
-const EditProfileModal = ( {authUser} ) => {
+const EditProfileModal = ({ authUser }) => {
 	const [formData, setFormData] = useState({
 		fullName: "",
 		username: "",
@@ -13,25 +12,25 @@ const EditProfileModal = ( {authUser} ) => {
 		currentPassword: "",
 	});
 
+	const { updateProfile, isUpdatingProfile } = useUpdateUserProfile();
+
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const { updateProfile, isUpdating } = userUpdateUserProfile()
-
 	useEffect(() => {
-		if(authUser) {
+		if (authUser) {
 			setFormData({
 				fullName: authUser.fullName,
 				username: authUser.username,
 				email: authUser.email,
 				bio: authUser.bio,
 				link: authUser.link,
-				newPassword: '',
-				currentPassword: ''
-			})
+				newPassword: "",
+				currentPassword: "",
+			});
 		}
-	}, [authUser])
+	}, [authUser]);
 
 	return (
 		<>
@@ -49,7 +48,6 @@ const EditProfileModal = ( {authUser} ) => {
 						onSubmit={(e) => {
 							e.preventDefault();
 							updateProfile(formData);
-							
 						}}
 					>
 						<div className='flex flex-wrap gap-2'>
@@ -113,7 +111,9 @@ const EditProfileModal = ( {authUser} ) => {
 							name='link'
 							onChange={handleInputChange}
 						/>
-						<button className='btn btn-primary rounded-full btn-sm text-white'>{isUpdating? <LoadingSpinner sm /> : 'Update'}</button>
+						<button className='btn btn-primary rounded-full btn-sm text-white'>
+							{isUpdatingProfile ? "Updating..." : "Update"}
+						</button>
 					</form>
 				</div>
 				<form method='dialog' className='modal-backdrop'>

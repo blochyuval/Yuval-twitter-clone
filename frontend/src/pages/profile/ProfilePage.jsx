@@ -5,18 +5,17 @@ import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
 
-import { POSTS } from "../../utils/db/dummy.js";
+import { POSTS } from "../../utils/db/dummy";
 
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { formatMemberSinceDate } from "../../utils/date/index.js";
-
-import useFollow from '../../hooks/useFollow.jsx'
-import LoadingSpinner from "../../components/common/LoadingSpinner.jsx";
-import userUpdateUserProfile from "../../hooks/useUpdateUserProfile.jsx";
 import { useQuery } from "@tanstack/react-query";
+import { formatMemberSinceDate } from "../../utils/date";
+
+import useFollow from "../../hooks/useFollow";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
@@ -25,12 +24,11 @@ const ProfilePage = () => {
 
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
-	
-	const { username } = useParams();
-	
-	const { follow, isPending } = useFollow();
-	const {data:authUser} = useQuery({ queryKey: ['authUser'] }) 
 
+	const { username } = useParams();
+
+	const { follow, isPending } = useFollow();
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
 	const {
 		data: user,
@@ -53,13 +51,10 @@ const ProfilePage = () => {
 		},
 	});
 
-	const { updateProfile, isUpdating: isUpdatingProfile} = userUpdateUserProfile();
-
-	
-
-	const memberSinceDate = formatMemberSinceDate(user?.createdAt);
+	const { isUpdatingProfile, updateProfile } = useUpdateUserProfile();
 
 	const isMyProfile = authUser._id === user?._id;
+	const memberSinceDate = formatMemberSinceDate(user?.createdAt);
 	const amIFollowing = authUser?.following.includes(user?._id);
 
 	const handleImgChange = (e, state) => {
@@ -83,7 +78,7 @@ const ProfilePage = () => {
 			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
 				{/* HEADER */}
 				{(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
-				{!isLoading && !isRefetching &&!user && <p className='text-center text-lg mt-4'>User not found</p>}
+				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
 				<div className='flex flex-col'>
 					{!isLoading && !isRefetching && user && (
 						<>
@@ -115,14 +110,14 @@ const ProfilePage = () => {
 								<input
 									type='file'
 									hidden
-                  accept='image/*'
+									accept='image/*'
 									ref={coverImgRef}
 									onChange={(e) => handleImgChange(e, "coverImg")}
 								/>
 								<input
 									type='file'
 									hidden
-                  accept='image/*'
+									accept='image/*'
 									ref={profileImgRef}
 									onChange={(e) => handleImgChange(e, "profileImg")}
 								/>
@@ -146,27 +141,23 @@ const ProfilePage = () => {
 								{!isMyProfile && (
 									<button
 										className='btn btn-outline rounded-full btn-sm'
-										onClick={ () =>
-											follow(user._id)
-										}
+										onClick={() => follow(user?._id)}
 									>
-										{isPending && 'Loading...'}
-										{!isPending && amIFollowing && 'Unfollow' }
-										{!isPending && !amIFollowing && 'Follow'}
+										{isPending && "Loading..."}
+										{!isPending && amIFollowing && "Unfollow"}
+										{!isPending && !amIFollowing && "Follow"}
 									</button>
 								)}
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
 										onClick={async () => {
-											await updateProfile({ profileImg, coverImg })
-											setCoverImg(null);
+											await updateProfile({ coverImg, profileImg });
 											setProfileImg(null);
-										}	
-										}
+											setCoverImg(null);
+										}}
 									>
-										{isUpdatingProfile? <LoadingSpinner sm /> :
-										'Update'}
+										{isUpdatingProfile ? "Updating..." : "Update"}
 									</button>
 								)}
 							</div>
@@ -189,7 +180,8 @@ const ProfilePage = () => {
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													youtube.com/@asaprogrammer_
+													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
+													{user?.link}
 												</a>
 											</>
 										</div>
@@ -233,7 +225,7 @@ const ProfilePage = () => {
 						</>
 					)}
 
-						<Posts feedType={feedType} username={username} userId={user?._id} />
+					<Posts feedType={feedType} username={username} userId={user?._id} />
 				</div>
 			</div>
 		</>
