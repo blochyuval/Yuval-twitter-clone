@@ -23,7 +23,7 @@ function App() {
     console.log('User authenticated: ', data);
     return data;
     }catch(error){
-      throw error;
+      throw new Error(error.message);
     }
   },
   retry: false
