@@ -5,8 +5,10 @@ import useFollow from "../../hooks/useFollow";
 
 import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
 import LoadingSpinner from "./LoadingSpinner";
+import { useState } from "react";
 
 const RightPanel = () => {
+
 	const { data: suggestedUsers, isLoading } = useQuery({
 		queryKey: ["suggestedUsers"],
 		queryFn: async () => {
@@ -24,8 +26,16 @@ const RightPanel = () => {
 	});
 
 	const { follow, isPending } = useFollow();
+	const [userIsFollowing, setUserIsFollowing] = useState(null);
 
 	if (suggestedUsers?.length === 0) return <div className='md:w-64 w-0'></div>;
+
+	const handleFollow = async (e, userId) => {
+		e.preventDefault();
+		setUserIsFollowing(userId);
+		await follow(userId);
+		setUserIsFollowing(null);
+	};
 
 	return (
 		<div className='hidden lg:block my-4 mx-2'>
@@ -65,11 +75,11 @@ const RightPanel = () => {
 									<button
 										className='btn bg-white text-black hover:bg-white hover:opacity-90 rounded-full btn-sm'
 										onClick={(e) => {
-											e.preventDefault();
-											follow(user._id);
+											handleFollow(e, user._id)
 										}}
 									>
-										{isPending ? <LoadingSpinner size='sm' /> : "Follow"}
+										{isPending && userIsFollowing === user._id?
+											 (<LoadingSpinner size='sm' />) : 'Follow' }
 									</button>
 								</div>
 							</Link>
