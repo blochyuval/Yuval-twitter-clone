@@ -1,4 +1,34 @@
-twitter-clone through a course in youtube: 
+## 📌 Twitter Clone
+A full-stack social media application inspired by Twitter, allowing users to post, follow others, like, comment, and upload images. The application is built using Node.js for the backend and React.js for the frontend, providing a real-time, dynamic social experience.
+
+## 📺 Demo
+
+![Demo](./gif/XClone.gif)
+
+## 🚀 Features
+📝 Users can create posts, like posts, comment, and follow other users.
+
+🖼️ Image upload functionality with Cloudinary integration for storing images.
+
+🔐 Authentication with secure, HTTP-only cookies to maintain user sessions.
+
+💬 Real-time updates with live likes, comments, and follow actions, powered by TanStack Query.
+
+🧑‍💻 User profiles with the ability to update their information and upload profile pictures.
+
+📱 Fully responsive design for a seamless experience across devices.
+
+## 🧑‍💻 Tech Stack
+
+Frontend
+- React, Tailwind CSS, daisyUI, Axios, TanStack Query
+
+Backend
+- Node.js, Express.js, MongoDB (Mongoose), Bcrypt, cookie-parser, dotenv
+
+Other Tools
+
+- Postman, Cloudinary
 
 
 ### Setup .env file
@@ -24,3 +54,8 @@ npm run build
 ```shell
 npm start
 ```
+
+## 🙏 Acknowledgments
+This project was built as part of my learning journey. Special thanks to the online developer community, tutorials, videos, and blog posts that guided and inspired me during the creation of this app.
+
+Thanks for checking it out! 🌿
