@@ -56,6 +56,7 @@ npm start
 ```
 
 ## 🙏 Acknowledgments
-This project was built as part of my learning journey. Special thanks to the online developer community, tutorials, videos, and blog posts that guided and inspired me during the creation of this app.
+This project was built as part of my personal learning path. I want to thank the online developer community and the many tutorials, videos, and blog posts that helped guide and inspire me throughout the process of building this app.
 
+Thanks for checking it out! 🌿
 Thanks for checking it out! 🌿
