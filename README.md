@@ -59,4 +59,3 @@ npm start
 This project was built as part of my personal learning path. I want to thank the online developer community and the many tutorials, videos, and blog posts that helped guide and inspire me throughout the process of building this app.
 
 Thanks for checking it out! 🌿
-Thanks for checking it out! 🌿
