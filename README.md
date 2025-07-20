@@ -1,5 +1,5 @@
 ## 📌 Twitter Clone
-A full-stack social media application inspired by Twitter, allowing users to post, follow others, like, comment, and upload images. The application is built using Node.js for the backend and React.js for the frontend, providing a real-time, dynamic social experience.
+A full-stack social media application inspired by Twitter, allowing users to post, follow others, like, comment, and upload images. The application is built using Express.js for the backend and React.js for the frontend, providing a real-time, dynamic social experience.
 
 ## 📺 Demo
 
@@ -24,7 +24,7 @@ Frontend
 - React, Tailwind CSS, daisyUI, Axios, TanStack Query
 
 Backend
-- Node.js, Express.js, MongoDB (Mongoose), Bcrypt, cookie-parser, dotenv
+- Express.js, MongoDB (Mongoose), Bcrypt, cookie-parser, dotenv
 
 Other Tools
 
